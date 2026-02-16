@@ -1,27 +1,27 @@
-// main.js – handles tool page interactions (upload, simulate compress, download)
+// main.js – enhanced for multiple files & varied accept types
 
 document.addEventListener('DOMContentLoaded', function() {
-    // elements
     const dropArea = document.getElementById('dropArea');
     const fileInput = document.getElementById('fileInput');
     const actionBtn = document.getElementById('actionBtn');
     const resultSection = document.getElementById('resultSection');
     const downloadBtn = document.getElementById('downloadBtn');
 
-    // if not on a tool page, exit (prevents errors on homepage)
-    if (!dropArea || !fileInput || !actionBtn) return;
+    if (!dropArea || !fileInput || !actionBtn) return; // not a tool page
 
-    let selectedFile = null;
+    let selectedFiles = []; // array for multiple files
 
-    // --- file selection via click on drop area ---
-    dropArea.addEventListener('click', () => {
-        fileInput.click();
-    });
+    // --- determine accepted types from input attribute ---
+    const acceptAttr = fileInput.accept || '.pdf,.jpg,.jpeg,.png';
+    const acceptTypes = acceptAttr.split(',').map(s => s.trim());
 
-    // prevent default drag behaviors
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        dropArea.addEventListener(eventName, (e) => e.preventDefault());
-        dropArea.addEventListener(eventName, (e) => e.stopPropagation());
+    // --- click on drop area ---
+    dropArea.addEventListener('click', () => fileInput.click());
+
+    // --- drag & drop prevention ---
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eName => {
+        dropArea.addEventListener(eName, e => e.preventDefault());
+        dropArea.addEventListener(eName, e => e.stopPropagation());
     });
 
     // highlight on drag
@@ -38,60 +38,80 @@ document.addEventListener('DOMContentLoaded', function() {
         dropArea.style.background = '#fcfdff';
     });
 
-    // handle dropped files
+    // --- handle dropped files ---
     dropArea.addEventListener('drop', (e) => {
-        const files = e.dataTransfer.files;
-        if (files.length > 0 && files[0].type === 'application/pdf') {
-            handleFile(files[0]);
-        } else {
-            alert('Please drop a PDF file.');
-        }
+        const files = Array.from(e.dataTransfer.files);
+        handleFiles(files);
     });
 
-    // handle file input change
+    // --- handle file input change ---
     fileInput.addEventListener('change', (e) => {
-        if (e.target.files.length > 0) {
-            handleFile(e.target.files[0]);
-        }
+        const files = Array.from(e.target.files);
+        handleFiles(files);
     });
 
-    function handleFile(file) {
-        selectedFile = file;
+    function handleFiles(files) {
+        // filter by accept type (simple check)
+        const validFiles = files.filter(file => {
+            return acceptTypes.some(type => {
+                if (type.startsWith('.')) {
+                    return file.name.toLowerCase().endsWith(type);
+                } else {
+                    return file.type.match(type);
+                }
+            });
+        });
+
+        if (validFiles.length === 0) {
+            alert('Please drop valid file types: ' + acceptAttr);
+            return;
+        }
+
+        selectedFiles = validFiles;
+
+        // update UI
+        if (validFiles.length === 1) {
+            dropArea.innerHTML = `<i class="fas fa-file"></i><h3>${validFiles[0].name}</h3><p>${(validFiles[0].size / 1024).toFixed(1)} KB · ready</p>`;
+        } else {
+            dropArea.innerHTML = `<i class="fas fa-files"></i><h3>${validFiles.length} files selected</h3><p>Click "Process" to continue</p>`;
+        }
+
         actionBtn.disabled = false;
-        // optional: show file name in drop area
-        const originalText = dropArea.innerHTML;
-        dropArea.innerHTML = `<i class="fas fa-file-pdf"></i><h3>${file.name}</h3><p>${(file.size / 1024).toFixed(1)} KB · ready to compress</p>`;
-        // store original to revert? not necessary now.
     }
 
-    // --- action button click: simulate compression ---
+    // --- action button click ---
     actionBtn.addEventListener('click', () => {
-        if (!selectedFile) return;
+        if (selectedFiles.length === 0) return;
 
-        // disable button to prevent double click
         actionBtn.disabled = true;
-        actionBtn.textContent = 'Compressing...';
+        actionBtn.textContent = 'Processing...';
 
-        // simulate async processing (e.g., network delay)
         setTimeout(() => {
-            // hide the main tool box? we keep it but show result below.
             // show result section
             resultSection.style.display = 'block';
 
-            // create a dummy download (blob) – in real scenario this would be the compressed file
-            // For demo, we create a simple text file pretending to be a PDF.
-            const dummyContent = 'This is a simulated compressed PDF file. In a real implementation, the server would return the actual compressed PDF.';
-            const blob = new Blob([dummyContent], { type: 'application/pdf' });
+            // create dummy download (simulate result)
+            let fileName = 'result';
+            if (selectedFiles.length === 1) {
+                fileName = `processed_${selectedFiles[0].name}`;
+            } else {
+                fileName = 'processed_files.zip'; // dummy
+            }
+
+            const dummyContent = 'Simulated output file. In production, this would be your converted PDF.';
+            const blob = new Blob([dummyContent], { type: 'application/octet-stream' });
             const url = URL.createObjectURL(blob);
             downloadBtn.href = url;
-            downloadBtn.download = selectedFile ? `compressed_${selectedFile.name}` : 'compressed.pdf';
+            downloadBtn.download = fileName;
 
-            // reset button state
+            // update preview text
+            document.querySelector('.file-preview').innerHTML = `<i class="fas fa-file"></i> ${fileName} (simulated)`;
+
             actionBtn.disabled = false;
-            actionBtn.textContent = 'Compress PDF';
-        }, 2000); // 2 second fake processing
+            actionBtn.textContent = actionBtn.getAttribute('data-original-text') || 'Process';
+        }, 2000);
     });
 
-    // optional: reset when new file is selected after result shown
-    // we can add a reset mechanism, but it's fine.
+    // store original button text
+    actionBtn.setAttribute('data-original-text', actionBtn.textContent);
 });
