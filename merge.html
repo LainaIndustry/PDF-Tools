@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merge PDF - PDFBABY</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container nav-container">
+            <div class="logo"><a href="index.html">PDFBABY</a></div>
+            <nav class="nav-links">
+                <a href="merge.html">Merge PDF</a>
+                <a href="split.html">Split PDF</a>
+                <a href="compress.html">Compress PDF</a>
+                <a href="#">Convert tools</a>
+                <a href="#">Blog</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="ad-container ad-header"><div class="ad-placeholder">Ad (728x90) - below header</div></div>
+
+    <main class="tool-page">
+        <div class="container">
+            <div class="tool-header">
+                <h1>Merge PDF</h1>
+                <p class="tool-description">Combine multiple PDFs into one document</p>
+            </div>
+
+            <div class="tool-box" id="toolBox">
+                <div class="upload-area" id="dropArea">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Drag & drop PDFs here</h3>
+                    <p>or</p>
+                    <label for="fileInput" class="btn btn-outline">Select files</label>
+                    <input type="file" id="fileInput" accept=".pdf" multiple hidden>
+                    <p class="file-hint">You can select multiple files</p>
+                </div>
+                <div class="action-area">
+                    <button class="btn btn-primary btn-large" id="actionBtn" disabled>Merge PDFs</button>
+                </div>
+            </div>
+
+            <div class="ad-container ad-after-tool"><div class="ad-placeholder">Ad (336x280) - below tool box</div></div>
+
+            <div class="result-section" id="resultSection" style="display: none;">
+                <div class="result-card">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Your merged PDF is ready!</p>
+                    <a href="#" class="btn btn-success" id="downloadBtn" download="merged.pdf">Download merged PDF</a>
+                    <div class="file-preview"><i class="fas fa-file-pdf"></i> merged_document.pdf</div>
+                </div>
+                <div class="ad-container ad-after-download"><div class="ad-placeholder">Ad - below download</div></div>
+            </div>
+
+            <section class="tool-info">
+                <h2>What is PDF merging?</h2>
+                <p>Merge multiple PDF files into one single PDF. Perfect for combining reports, invoices, or scanned documents.</p>
+                <h3>How to use</h3>
+                <ol><li>Upload two or more PDF files.</li><li>Click "Merge PDFs".</li><li>Download the combined file.</li></ol>
+            </section>
+
+            <div class="ad-container ad-before-footer"><div class="ad-placeholder">Ad - before footer</div></div>
+        </div>
+    </main>
+
+    <footer class="site-footer">[same footer as index]</footer>
+    <script src="js/main.js"></script>
+</body>
+</html>
