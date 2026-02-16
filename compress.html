@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compress PDF - PDFBABY</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- header (identical to homepage) -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="index.html">PDFBABY</a>
+            </div>
+            <nav class="nav-links">
+                <a href="merge.html">Merge PDF</a>
+                <a href="split.html">Split PDF</a>
+                <a href="compress.html">Compress PDF</a>
+                <a href="#">Convert tools</a>
+                <a href="#">Blog</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- AdSense placement 1: small horizontal ad below header -->
+    <div class="ad-container ad-header">
+        <div class="ad-placeholder">Ad (728x90) - below header</div>
+    </div>
+
+    <main class="tool-page">
+        <div class="container">
+            <!-- tool title & description -->
+            <div class="tool-header">
+                <h1>Compress PDF</h1>
+                <p class="tool-description">Reduce file size quickly and free</p>
+            </div>
+
+            <!-- main tool box (upload & action) -->
+            <div class="tool-box" id="toolBox">
+                <div class="upload-area" id="dropArea">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Drag & drop a PDF here</h3>
+                    <p>or</p>
+                    <label for="fileInput" class="btn btn-outline">Select file</label>
+                    <input type="file" id="fileInput" accept=".pdf" hidden>
+                    <p class="file-hint">Maximum file size: 100 MB</p>
+                </div>
+
+                <!-- action button (initially disabled, enabled after file select) -->
+                <div class="action-area">
+                    <button class="btn btn-primary btn-large" id="actionBtn" disabled>Compress PDF</button>
+                </div>
+            </div>
+
+            <!-- AdSense placement 2: below tool box (high earning spot) -->
+            <div class="ad-container ad-after-tool">
+                <div class="ad-placeholder">Ad (336x280) - below tool box</div>
+            </div>
+
+            <!-- result section (hidden until processing) -->
+            <div class="result-section" id="resultSection" style="display: none;">
+                <div class="result-card">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Your file is ready!</p>
+                    <a href="#" class="btn btn-success" id="downloadBtn" download="compressed.pdf">Download compressed PDF</a>
+                    <!-- simple preview (dummy) -->
+                    <div class="file-preview">
+                        <i class="fas fa-file-pdf"></i> compressed_document.pdf (1.2 MB)
+                    </div>
+                </div>
+
+                <!-- AdSense placement 3: below download button -->
+                <div class="ad-container ad-after-download">
+                    <div class="ad-placeholder">Ad - below download</div>
+                </div>
+            </div>
+
+            <!-- info / SEO content -->
+            <section class="tool-info">
+                <h2>What is PDF compression?</h2>
+                <p>Compress PDF files without losing quality. Our tool reduces file size by optimising images, removing redundant data, and compressing streams. Ideal for email or saving space.</p>
+                
+                <h3>How to use</h3>
+                <ol>
+                    <li>Upload your PDF using the drop area above.</li>
+                    <li>Click "Compress PDF".</li>
+                    <li>Wait a moment (simulated in this demo).</li>
+                    <li>Download your compressed file.</li>
+                </ol>
+
+                <h3>Features</h3>
+                <ul>
+                    <li>100% free, no registration</li>
+                    <li>Fast compression on device (demo simulated)</li>
+                    <li>Maintains original quality</li>
+                </ul>
+            </section>
+
+            <!-- AdSense placement 4: before footer -->
+            <div class="ad-container ad-before-footer">
+                <div class="ad-placeholder">Ad - before footer</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- footer (same as homepage) -->
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <h4>Tools</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#">All Tools</a></li>
+                    <li><a href="#">Popular Tools</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Disclaimer</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>© 2026 PDFBABY — All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for tool interaction -->
+    <script src="js/main.js"></script>
+</body>
+</html>
